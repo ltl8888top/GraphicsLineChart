@@ -26,66 +26,121 @@ class Callout;
 
 QT_USE_NAMESPACE
 
+struct Tag_BadParse_result;
+
 class GraphicsLineChart : public QGraphicsView
 {
     Q_OBJECT
 public:
    GraphicsLineChart(QWidget *parent = 0);
 
-   void start();//开启定时器
+   //开启定时器
+   void start();
 
-   void stop();//停止定时器
+   //停止定时器
+   void stop();
 
 
 protected:
+
+   //chart 大小跟随Graphics变化
     void resizeEvent(QResizeEvent *event);
+    //鼠标移动时间
     void mouseMoveEvent(QMouseEvent *event);
 
-
-
 signals:
-    void mouseMovePoint(QPointF point); //鼠标移动
-
+    //鼠标移动
+    void mouseMovePoint(QPointF point);
+    //跟新信号
     void viewUpdata();
+    //可以显示的页数
+    void pageNum(int num);
+
+    //当前页数
+    void thisPageNum(int num);
 
 public slots:
+
+    //点击线 一直显示坐标在视图
     void keepCallout();
+
+    //鼠标停留线上 显示坐标
     void tooltip(QPointF point, bool state);
 
-    void DrawLine();                     //定时器画线
+    //定时器画线
+    void DrawLine();
 
+    //设置折线图显示范围
     void slotsRange(int m_range);
 
+    //以传入的时间 开始显示到折线图
     void slotsDatetime(QString timer);
+
+    //上一页
+    void slotsupPage();
+
+    //下一页
+    void slotsDownPage();
+
+    //选择页显示
+    void slotsSetPage(int m_page);
 
 
 
 private:
 
-    int range;                              //折线图显示范围
+    int range;                              //折线图显示范围标志0：1分钟 1：15分钟 2：30分钟 3：1小时
 
-    QTimer *timer;                           //计时器
-    QLineSeries *series;
-    //QLineSeries *series2;
+    int page;                               //折线图的页数
+
+    int thispage;                           //当前折线图的页数
+
+    int numId;                              //接收到的数据个数ID每次+1
+
+    int timernum;                           //每页显示数据数量
+
+    QTimer *timer;                          //定时器
+    QLineSeries *series;                    //线
+    QLineSeries *series2;
 
 
-    QGraphicsSimpleTextItem *m_coordX;
+    QGraphicsSimpleTextItem *m_coordX;      //在Graphics上显示文字(坐标)
     QGraphicsSimpleTextItem *m_coordY;
 
-    QDateTimeAxis *axisX;                    //轴
+    QDateTimeAxis *axisX;                    //轴(X轴显示时间)
     QValueAxis *m_axisX;
-    QValueAxis *axisY;
+    QValueAxis *axisY;                       //Y轴数值
 
-    QChart *m_chart;
-    Callout *m_tooltip;
+    QChart *m_chart;                         //Chart线图
+    Callout *m_tooltip;                      //QGraphicsItem(图形项) 提供了文字接口
 
-    QList<Callout *> m_callouts;
+    QList<Callout *> m_callouts;             //
 
-    QMap<QString,int> my_data;
-
-
+    QList<Tag_BadParse_result> my_data;     //数据存放List
 
 
 };
+
+struct Tag_BadParse_result
+{
+    int id;                 //每次接收的数据id
+
+    QString m_dateTime;     //接收时间
+
+    int avgValue_xlv;       //数据值
+
+    int avgValue_xyv;       //数据值
+    //...
+
+    Tag_BadParse_result()
+    {
+        id = 0;
+        m_dateTime = "";
+        avgValue_xlv = 0;
+    }
+};
+
+
+
 
 #endif // GRAPHICSLINECHART_H

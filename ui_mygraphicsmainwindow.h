@@ -56,6 +56,8 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QSpacerItem *horizontalSpacer_2;
     QLabel *label_3;
+    QLabel *label_4;
+    QLabel *label_5;
     QSpacerItem *horizontalSpacer_3;
     QFrame *line;
     QHBoxLayout *horizontalLayout_2;
@@ -181,6 +183,16 @@ public:
 
         horizontalLayout_3->addWidget(label_3);
 
+        label_4 = new QLabel(centralwidget);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+
+        horizontalLayout_3->addWidget(label_4);
+
+        label_5 = new QLabel(centralwidget);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+
+        horizontalLayout_3->addWidget(label_5);
+
         horizontalSpacer_3 = new QSpacerItem(168, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_3->addItem(horizontalSpacer_3);
@@ -267,7 +279,9 @@ public:
         comboBox->setItemText(2, QCoreApplication::translate("MyGraphicsMainWindow", "30min", nullptr));
         comboBox->setItemText(3, QCoreApplication::translate("MyGraphicsMainWindow", "1h", nullptr));
 
-        label_3->setText(QCoreApplication::translate("MyGraphicsMainWindow", "0/0", nullptr));
+        label_3->setText(QCoreApplication::translate("MyGraphicsMainWindow", "0", nullptr));
+        label_4->setText(QCoreApplication::translate("MyGraphicsMainWindow", "/", nullptr));
+        label_5->setText(QCoreApplication::translate("MyGraphicsMainWindow", "0", nullptr));
         label_2->setText(QCoreApplication::translate("MyGraphicsMainWindow", "\351\200\211\346\213\251\346\227\266\351\227\264\346\256\265:", nullptr));
         dateTimeEdit->setDisplayFormat(QCoreApplication::translate("MyGraphicsMainWindow", "yyyy/M/d H:mm:ss", nullptr));
         pushButton_5->setText(QCoreApplication::translate("MyGraphicsMainWindow", "\347\241\256\345\256\232", nullptr));
